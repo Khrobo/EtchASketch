@@ -22,7 +22,7 @@ function loadBlocks() {
 function blockHover(e) {
     let randomColor = ["A", "B", "C", "D", "E", "F", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // Add a random array of colors or an array of letters and colors that are randomly picked
     let color = "#";
-    console.log(e.target);
+
     for (let i=0; i<6; i++) {
         color += randomColor[Math.floor(Math.random() * randomColor.length)];
     }
@@ -30,11 +30,10 @@ function blockHover(e) {
 }
 
 function clearColors(e) {
-    console.log("Clear");
-    console.log(e.target.parentElement.nextElementSibling.children[0]);
     let blockColor = document.querySelectorAll(".block");
     for (let i=0; blockColor.length; i++) {
-        blockColor[i].style.background = "transparent";
+        if (blockColor[i]) blockColor[i].style.background = "transparent";
+        else return
     }
 }
 
@@ -50,7 +49,6 @@ function blockSize() {
         }
     }
     if (blockNum != isNaN && promptValue > 1 || promptValue < 64) {
-        console.log(promptValue); // Checks for the value numbers * value entered
         blockParent.style.gridTemplateColumns = `repeat(${grids}, 1fr)`;
         blockParent.style.gridTemplateRows = `repeat(${grids}, 1fr)`;
         for (let i=0; i<promptValue; i++) {
@@ -58,14 +56,9 @@ function blockSize() {
             blocks.addEventListener("mouseover", blockHover);
             blockParent.append(blocks);
             blocks.className = "block";
-            console.log(blocks);
         }
-        console.log(promptValue)
     } else if (blockNum == isNaN && promptValue < 1 || promptValue > 64) {
         alert("The number value is 1-64!");
         return;
     }
 }
-
-
-
